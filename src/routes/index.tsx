@@ -1,12 +1,19 @@
 import React from 'react';
 
-import { BrowserRouter, Link } from 'react-router-dom'
+import { BrowserRouter, Route } from 'react-router-dom';
+
+import Home from '../pages/Home';
+import Todo from '../pages/Todo';
+import Calendar from '../pages/Calendar';
+
 
 const Routes: React.FC= () => {
 
   return (
     <BrowserRouter basename="/">
-      <Link />
+      <Route path="/" exact component={Home} />
+      <Route path="/todo" component={Todo} />
+      <Route path="/calendar" component={Calendar} />
     </BrowserRouter>
   );
 }

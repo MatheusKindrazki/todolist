@@ -9,11 +9,18 @@ import React from 'react';
   -- Ter um histórico de tarefas finalizadas por dias;
 */
 
-import Routes from './routes'
+import Routes from './routes';
+
+import GlobalStyles from './styles/global';
 
 function App() {
 
-  return <Routes  />
+  return (
+    <>
+      <Routes  />
+      <GlobalStyles/>
+    </>
+  )
 }
 
 export default App;
