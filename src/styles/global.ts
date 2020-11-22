@@ -1,6 +1,14 @@
 import { createGlobalStyle } from 'styled-components';
 
+import bg from '../assets/bg.svg';
+
 export default createGlobalStyle`
+
+  :root {
+    --color-primary: #3B5798;
+    --color-secondary: #5A95FF;
+  }
+
   * {
     margin: 0;
     padding: 0;
@@ -44,5 +52,34 @@ export default createGlobalStyle`
     &:hover {
       opacity: .9;
     }
+
+    &.btn-primary {
+      background: var(--color-primary);
+      color: white;
+
+      margin: 10px;
+    }
+    &.btn-secondary {
+      background: var(--color-secondary);
+      color: white;
+
+      margin: 10px;
+    }
+  }
+
+  .round-bg {
+    width: 100%;
+    height: 50vh;
+    position: fixed;
+
+    top: 0%;
+    left: 0%;
+
+    background-image: url(${bg});
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: bottom;
+    
+    z-index: -1;
   }
 `;

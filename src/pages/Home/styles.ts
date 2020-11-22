@@ -14,19 +14,6 @@ export const Container = styled.div`
   flex-direction: column;
 
 
-  .round-bg {
-    width: 150%;
-    height: 100%;
-    position: fixed;
-
-    top: -50%;
-    left: -25%;
-    background: #F8FBFC;
-    
-    border-radius:60%;
-    z-index: -1;
-  }
-
   .main {
     width: 100%;
     max-width: 450px;
@@ -45,8 +32,6 @@ export const Container = styled.div`
     }
 
     img {
-      width: 130px;
-
       margin-top: 10px;
       margin-bottom: 15px;
     }
@@ -69,20 +54,6 @@ export const Container = styled.div`
       margin-top: 50px;
 
       width: 100%;
-
-      .btn-primary {
-        background: #3B5798;
-        color: white;
-
-        margin: 10px;
-      }
-      .btn-secondary {
-        background: #5A95FF;
-        color: white;
-
-        margin: 10px;
-      }
-
     }
   }
 `;

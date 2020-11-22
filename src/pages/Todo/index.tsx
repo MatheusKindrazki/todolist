@@ -1,7 +1,60 @@
-import React from 'react';
+import React, { useCallback, useContext, useState } from 'react';
+
+import { v4 as uuid } from 'uuid'
+
+import { CSSTransition, TransitionGroup } from 'react-transition-group'
+
+import Logo from '../../components/Logo';
+import TodoForm from '../../components/TodoForm';
+import TodoFormContext from '../../components/TodoForm/context';
+import TodoItem, { TodosProps } from '../../components/TodoItem';
+
+import { Container } from './styles';
+
+type Todos = Omit<TodosProps, 'onClick'>;
 
 const TodoList: React.FC = () => {
-  return <h1>Lista de tarefas</h1>;
+  const [todos, setTodos] = useState([] as Todos[]);
+
+  const context = useContext(TodoFormContext);
+
+  context.add = (e) => {
+    const newTodo: Todos = {
+      id: uuid(),
+      title: e,
+      date: new Date(),
+      done: false,
+    }
+
+    setTodos([...todos, newTodo])
+  }
+
+  const handleCompleted = useCallback((e) => {
+    console.log(e)
+  },[])
+
+  return (
+    <Container>
+      <div className="round-bg"></div>
+      <Logo  style={{ maxWidth: 70 }}/>
+
+      <div className="todo-list">
+        <TodoForm />
+
+        <TransitionGroup className="todo-group">
+          {todos?.map((todo, index) => (
+          <CSSTransition
+            key={index}
+            timeout={500}
+            classNames="move"
+          >
+            <TodoItem key={index} onClick={handleCompleted} {...todo}/>
+          </CSSTransition>
+          ))}
+        </TransitionGroup>
+      </div>
+    </Container>
+  );
 }
 
 export default TodoList;

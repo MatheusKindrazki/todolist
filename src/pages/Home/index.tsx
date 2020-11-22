@@ -8,7 +8,7 @@ import Lottie from 'react-lottie';
 
 import todoJson from './todo.json';
 
-import logo from '../../assets/ttd.png';
+import Logo from '../../components/Logo'
 
 const Home: React.FC = () => {
 
@@ -30,7 +30,8 @@ const Home: React.FC = () => {
         />
 
         <p>Ola! Seja bem-vindo ao</p>
-        <img src={logo} alt="TTD Logo"/>
+
+        <Logo />
 
         <div className="description">
           Um App para ajudar você a gerenciar sua vida diária, sem nenhum incômodo! 
