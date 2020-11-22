@@ -52,12 +52,4 @@ export const Container = styled.div`
     transition: all 500ms ease-in;
   }
 
-  .message {
-    margin: 10px 0;
-
-    h4 {
-      font-size: .7rem;
-      color: gray
-    }
-  }
 `;

@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useMemo, useState } from 'react';
+import React, { useCallback, useContext, useState } from 'react';
 
 import { v4 as uuid } from 'uuid'
 
@@ -15,7 +15,6 @@ type Todos = Omit<TodosProps, 'onClick'>;
 
 const TodoList: React.FC = () => {
   const [todos, setTodos] = useState([] as Todos[]);
-  const [showMessageTodoComplete, setShowMessageTodoComplete] = useState(false);
 
   const context = useContext(TodoFormContext);
 
@@ -47,24 +46,6 @@ const TodoList: React.FC = () => {
 
   },[todos])
 
-  const renderTodoNotDone = useMemo(() => {
-    return todos.filter(todo => todo.done === false)
-
-  },[todos])
-
-  const renderTodoDone = useMemo(() => {
-    const hasTodos = todos.filter(todo => todo.done === true)
-
-    if(hasTodos.length) {
-      setShowMessageTodoComplete(true)
-    } else {
-      setShowMessageTodoComplete(false)
-    }
-
-    return hasTodos;
-  },[todos])
-
-
   return (
     <Container>
       <div className="round-bg"></div>
@@ -74,7 +55,7 @@ const TodoList: React.FC = () => {
         <TodoForm />
 
         <TransitionGroup className="todo-group">
-          {renderTodoNotDone?.map((todo, index) =>  (
+          {todos?.map((todo, index) =>  (
             <CSSTransition
               key={index}
               timeout={{
@@ -84,26 +65,6 @@ const TodoList: React.FC = () => {
               }}
               classNames="move"
             >
-              <TodoItem key={index} onClick={handleCompleted} {...todo}/>
-            </CSSTransition>
-          ))}
-
-          {showMessageTodoComplete && (
-            <div className="message">
-              <h4>Tarefas concluídas</h4>
-            </div>
-          )}
-
-          {renderTodoDone?.map((todo, index) =>  (
-            <CSSTransition
-            key={index}
-            timeout={{
-              enter: 500,
-              exit: 300,
-              appear: 240
-            }}
-            classNames="move"
-            > 
               <TodoItem key={index} onClick={handleCompleted} {...todo}/>
             </CSSTransition>
           ))}
