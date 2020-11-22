@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useState } from 'react';
+import React, { useCallback, useContext, useMemo, useState } from 'react';
 
 import { v4 as uuid } from 'uuid'
 
@@ -15,6 +15,7 @@ type Todos = Omit<TodosProps, 'onClick'>;
 
 const TodoList: React.FC = () => {
   const [todos, setTodos] = useState([] as Todos[]);
+  const [showMessageTodoComplete, setShowMessageTodoComplete] = useState(false);
 
   const context = useContext(TodoFormContext);
 
@@ -29,9 +30,40 @@ const TodoList: React.FC = () => {
     setTodos([...todos, newTodo])
   }
 
-  const handleCompleted = useCallback((e) => {
-    console.log(e)
-  },[])
+  const handleCompleted = useCallback((id) => {
+    
+    const findAndCompleted = todos.map(todo => {
+      if(todo.id === id) {
+        return {
+          ...todo,
+          done: !todo.done
+        }
+      }
+
+      return todo;
+    });
+
+    setTodos(findAndCompleted)
+
+  },[todos])
+
+  const renderTodoNotDone = useMemo(() => {
+    return todos.filter(todo => todo.done === false)
+
+  },[todos])
+
+  const renderTodoDone = useMemo(() => {
+    const hasTodos = todos.filter(todo => todo.done === true)
+
+    if(hasTodos.length) {
+      setShowMessageTodoComplete(true)
+    } else {
+      setShowMessageTodoComplete(false)
+    }
+
+    return hasTodos;
+  },[todos])
+
 
   return (
     <Container>
@@ -42,14 +74,38 @@ const TodoList: React.FC = () => {
         <TodoForm />
 
         <TransitionGroup className="todo-group">
-          {todos?.map((todo, index) => (
-          <CSSTransition
+          {renderTodoNotDone?.map((todo, index) =>  (
+            <CSSTransition
+              key={index}
+              timeout={{
+                enter: 500,
+                exit: 300,
+                appear: 240
+              }}
+              classNames="move"
+            >
+              <TodoItem key={index} onClick={handleCompleted} {...todo}/>
+            </CSSTransition>
+          ))}
+
+          {showMessageTodoComplete && (
+            <div className="message">
+              <h4>Tarefas concluídas</h4>
+            </div>
+          )}
+
+          {renderTodoDone?.map((todo, index) =>  (
+            <CSSTransition
             key={index}
-            timeout={500}
+            timeout={{
+              enter: 500,
+              exit: 300,
+              appear: 240
+            }}
             classNames="move"
-          >
-            <TodoItem key={index} onClick={handleCompleted} {...todo}/>
-          </CSSTransition>
+            > 
+              <TodoItem key={index} onClick={handleCompleted} {...todo}/>
+            </CSSTransition>
           ))}
         </TransitionGroup>
       </div>

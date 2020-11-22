@@ -51,4 +51,13 @@ export const Container = styled.div`
     transform: translate(40px, 0);
     transition: all 500ms ease-in;
   }
+
+  .message {
+    margin: 10px 0;
+
+    h4 {
+      font-size: .7rem;
+      color: gray
+    }
+  }
 `;
