@@ -11,10 +11,16 @@ import TodoItem, { TodosProps } from '../../components/TodoItem';
 
 import { Container } from './styles';
 
+import { getStorage, setStorage } from '../../services/useStorage';
+
 type Todos = Omit<TodosProps, 'onClick'>;
 
 const TodoList: React.FC = () => {
-  const [todos, setTodos] = useState([] as Todos[]);
+  const [todos, setTodos] = useState(() => {
+    const storage = getStorage();
+
+    return storage as Todos[];
+  });
 
   const context = useContext(TodoFormContext);
 
@@ -25,8 +31,12 @@ const TodoList: React.FC = () => {
       date: new Date(),
       done: false,
     }
+    
+    const rewriteTodos = [...todos, newTodo];
 
-    setTodos([...todos, newTodo])
+    setStorage(rewriteTodos);
+
+    setTodos(rewriteTodos)
   }
 
   const handleCompleted = useCallback((id) => {
@@ -41,6 +51,8 @@ const TodoList: React.FC = () => {
 
       return todo;
     });
+
+    setStorage(findAndCompleted);
 
     setTodos(findAndCompleted)
 
