@@ -12,8 +12,9 @@ import TodoItem, { TodosProps } from '../../components/TodoItem';
 import { Container } from './styles';
 
 import { getStorage, setStorage } from '../../services/useStorage';
+import GoBack from '../../components/GoBack';
 
-type Todos = Omit<TodosProps, 'onClick'>;
+type Todos = Omit<TodosProps, 'onAdd' | 'onDelete'>;
 
 const TodoList: React.FC = () => {
   const [todos, setTodos] = useState(() => {
@@ -58,10 +59,23 @@ const TodoList: React.FC = () => {
 
   },[todos])
 
+  const handleDelete = useCallback((id) => {
+
+    const findAndDeleted = todos.filter(todo => todo.id !== id);
+
+    setStorage(findAndDeleted);
+
+    setTodos(findAndDeleted)
+  },[todos])
+
   return (
     <Container>
       <div className="round-bg"></div>
-      <Logo  style={{ maxWidth: 70 }}/>
+
+      <header>
+        <GoBack />
+        <Logo  style={{ maxWidth: 70 }}/>
+      </header>
 
       <div className="todo-list">
         <TodoForm />
@@ -77,7 +91,11 @@ const TodoList: React.FC = () => {
               }}
               classNames="move"
             >
-              <TodoItem key={index} onClick={handleCompleted} {...todo}/>
+              <TodoItem
+                key={index}
+                onAdd={handleCompleted}
+                onDelete={handleDelete}
+                {...todo}/>
             </CSSTransition>
           ))}
         </TransitionGroup>

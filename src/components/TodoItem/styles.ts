@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
-interface ButtonProps {
+interface DivProps {
   done: boolean
 }
 
-export const Container = styled.button<ButtonProps>`
+export const Container = styled.div<DivProps>`
   position: relative;
   background: #FFFFFF;
   box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.0416667);
@@ -12,15 +12,14 @@ export const Container = styled.button<ButtonProps>`
   text-align: left;
 
   width: 100%;
-  outline: none;
-  border: none;
 
   padding: 15px;
   padding-left: 40px;
+  padding-right: 40px;
 
   word-wrap: break-word;
 
-  + button {
+  + div {
     margin-top: 10px;
   }
 
@@ -29,10 +28,13 @@ export const Container = styled.button<ButtonProps>`
 
   .complete-checkbox {
     position: absolute;
+    outline: none;
+    border: none;
     top: 0;
     bottom: 0;
     left: 5px;
     margin: 0 auto;
+    background: transparent;
 
     &:before {
       content: '';
@@ -49,6 +51,32 @@ export const Container = styled.button<ButtonProps>`
       border-radius: 50%;
 
       transition: all .2s ease-in-out;
+    }
+  }
+
+  .delete-todo {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: 0 auto;
+    width: 40px;
+    height: 100%;
+    background: transparent;
+    outline: none;
+    border: none;
+
+    cursor: pointer;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999!important;
+
+    transition: all .2s linear;
+
+    &:hover {
+      opacity: 0.5;
     }
   }
 

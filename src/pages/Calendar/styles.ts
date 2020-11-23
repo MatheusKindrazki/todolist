@@ -32,35 +32,4 @@ export const Container = styled.div`
     max-width: 550px;
     width: 100%;
   }
-
-  .todo-group {
-    width: 100%;
-    max-height: 65vh;
-    overflow: hidden;
-
-    padding-top: 30px;
-  }
-
-  .move-enter {
-    opacity: 0.01;
-    transform: translate(-40px, 0)
-  }
-
-  .move-enter-active {
-    opacity: 1;
-    transform: translate(0, 0);
-    transition: all 500ms ease-in;
-  }
-
-  .move-exit {
-    opacity: 1;
-    transform: translate(0, 0)
-  }
-
-  .move-exit-active {
-    opacity: 0.01;
-    transform: translate(40px, 0);
-    transition: all 500ms ease-in;
-  }
-
 `;
