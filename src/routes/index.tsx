@@ -7,7 +7,7 @@ import Todo from '../pages/Todo';
 import Calendar from '../pages/Calendar';
 
 const Routes: React.FC= () => {
-  
+
   return (
     <BrowserRouter>
       <Switch >

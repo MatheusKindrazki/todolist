@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useContext, memo } from 'react';
+import React, { memo, useState, useCallback, useContext } from 'react';
 
 import classNames from 'classnames';
 
@@ -6,20 +6,19 @@ import { Container } from './styles';
 
 import { AiOutlineEnter } from 'react-icons/ai'
 
-import ContextForm from './context';
+import TodoContext from './context'
 
 const TodoForm: React.FC = () => {
-
-  const { add } = useContext(ContextForm)
-  
   const [input, setInput] = useState('');
   const [error, setError] = useState(false);
+
+  const { add } = useContext(TodoContext);
 
   const handleAdd = useCallback(() => {
     if(!input) {
       setError(true);
       return;
-    };
+    }
 
     add(input);
 
@@ -29,13 +28,14 @@ const TodoForm: React.FC = () => {
       setError(false);
     }
 
-  },[add, error, input])
+    
+  },[add, error, input]);
 
   return (
     <Container className="todo-form">
       <input 
         className={classNames({
-          error
+          error,
         })}
         type="text"
         value={input}
